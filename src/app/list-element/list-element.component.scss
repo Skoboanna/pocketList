@@ -1,0 +1,60 @@
+@import "../utilities/variables.scss";
+
+.ico {
+  display: inline-block;
+  color: #0F52BA;
+  font-size: 40px;
+  fill: currentColor;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: -0.05em;
+}
+
+.listElement {
+  height: 3rem;
+  font-size: $font-size-small;
+  font-weight: 600;
+  color: $font-color-main;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #E2E2E2;
+
+  &__check {
+    margin: 1.8rem;
+  }
+
+  &__buttons {
+    display: flex;
+    margin-left: auto;
+    margin-right: 1rem;
+
+    &--delete,
+    &--edit {
+      margin: 0.8rem;
+
+      >svg {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.listElement:hover>.listElement__buttons>.listElement__buttons--edit>svg,
+.listElement:hover>.listElement__buttons>.listElement__buttons--delete>svg {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+:host-context(.done) {
+  .ico {
+    color: $font-color-gray;
+  }
+
+  .listElement {
+    color: $font-color-gray;
+    text-decoration: line-through;
+    font-weight: 400;
+  }
+
+}

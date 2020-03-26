@@ -1,0 +1,36 @@
+<div class="overlay">
+  <div class="listBody">
+    <div class="listBody__header">
+      <h3>List Title</h3>
+      <span>X</span>
+    </div>
+    <div class="listBody__input">
+      <svg class="ico listBody__search--button" (click)="addListItem()">
+        <use xlink:href="#lnr-plus-circle"></use>
+      </svg>
+      <div class="listBody__search">
+        <input
+          [(ngModel)]="title"
+          placeholder="Add item..."
+          class="listBody__search--input"
+          (keyup.enter)="addListItem()"
+        />
+        <span class="listBody__search--border"></span>
+      </div>
+    </div>
+    <div class="listBody__content">
+      <list-element
+        [item]="item"
+        [isDone]="false"
+        *ngFor="let item of listItems"
+      ></list-element>
+      <list-element
+        [item]="doneItem"
+        [isDone]="true"
+        class="done"
+        *ngFor="let doneItem of doneItems"
+      ></list-element>
+    </div>
+    <backdrop></backdrop>
+  </div>
+</div>

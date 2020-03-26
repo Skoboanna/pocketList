@@ -1,0 +1,20 @@
+<div class="listElement">
+  <div class="listElement__check" (click)="markAsDone()">
+    <svg class="ico">
+      <use xlink:href="#lnr-checkmark-circle"></use>
+    </svg>
+  </div>
+  <span>{{ item.title }}</span>
+  <div class="listElement__buttons">
+    <div class="listElement__buttons--edit" (click)="editItem()">
+      <svg class="ico">
+        <use xlink:href="#lnr-pencil"></use>
+      </svg>
+    </div>
+    <div class="listElement__buttons--delete" (click)="removeItem()">
+      <svg class="ico">
+        <use xlink:href="#lnr-cross"></use>
+      </svg>
+    </div>
+  </div>
+</div>

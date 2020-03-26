@@ -1,0 +1,98 @@
+@import "../utilities/variables.scss";
+$listElementHeight: 4rem;
+$fontHeaderSize: 1.5rem;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ico {
+  display: inline-block;
+  color: #0F52BA;
+  font-size: 40px;
+  fill: currentColor;
+  width: 1.3rem;
+  height: 1.3rem;
+  vertical-align: -0.05em;
+}
+
+.listBody {
+  @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  height: 40rem;
+  width: 40rem;
+  background-color: rgb(245, 245, 245);
+  display: flex;
+  flex-direction: column;
+
+
+  &__header {
+    color: $font-color-main;
+    font-size: $fontHeaderSize;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: $listElementHeight;
+    padding: $space 1rem 0.5*$space 2*$space;
+  }
+
+  &__input {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__search {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 2rem;
+    margin: 0rem 1.8rem 0rem 1.8rem;
+
+    input {
+      font-size: $font-size-small;
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+      color: gray;
+      background: none;
+      border: none;
+      width: 100%;
+      border-bottom: 1px solid #ccc;
+    }
+
+    &--button {
+      width: 1.3rem;
+      height: 1.3rem;
+      display: flex;
+      align-self: center;
+      margin-left: 1.8rem;
+    }
+
+    &--border {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: $main-color;
+    }
+  }
+
+  input:hover~.listBody__search--border,
+  input:focus~.listBody__search--border {
+    width: 100%;
+    transition: 0.5s;
+  }
+
+  input:hover,
+  input:focus {
+    outline: none;
+  }
+}
