@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.listService.onChange.subscribe(() => this.reloadListItems());
+    this.reloadListItems();
   }
 
   reloadListItems() {
@@ -28,8 +29,4 @@ export class ListComponent implements OnInit {
   addListItem() {
     this.listService.addListItem(this.title);
   }
-
-
-
-
 }
