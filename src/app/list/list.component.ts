@@ -10,11 +10,12 @@ import { ListService } from '../list.service'
 })
 export class ListComponent implements OnInit {
   title: string;
-
   listItems: ListElementData[];
   doneItems: ListElementData[];
 
-  constructor(private listService: ListService) { }
+  constructor(private listService: ListService) {
+    this.reloadListItems();
+  }
 
   ngOnInit() {
     this.listService.onChange.subscribe(() => this.reloadListItems());
@@ -28,5 +29,6 @@ export class ListComponent implements OnInit {
 
   addListItem() {
     this.listService.addListItem(this.title);
+    this.title = '';
   }
 }

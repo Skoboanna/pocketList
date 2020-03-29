@@ -17,6 +17,10 @@ export default class ListUtils {
         localStorage.setItem(listName, JSON.stringify(list));
     }
 
+    static getItemById(list: ListElementData[], id: string) {
+        return list.filter(item => item.id === id);
+    }
+
     static changeItemStatus(id: string, itemFrom: ListElementData[], itemTo: ListElementData[]) {
 
     }

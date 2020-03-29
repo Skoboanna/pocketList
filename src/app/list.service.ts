@@ -2,64 +2,67 @@ import { ListElementData } from './list-element.data'
 import { StoredListService } from './storedList.service'
 import { Injectable, EventEmitter } from '@angular/core';
 import ListUtils from './list-utils';
-import * as constants from './utilities/constants';
 
-// @Injectable({
-//     providedIn: 'root'
-// })
+@Injectable({
+    providedIn: 'root'
+})
 
 export class ListService {
     public onChange = new EventEmitter();
-    private toDoItems: ListElementData[] = [];
-    private doneItems: ListElementData[] = [];
+    private toDoList: StoredListService;
+    private doneList: StoredListService;
 
-    public getListItems(): any { // delete all
-        this.toDoItems = ListUtils.getListFromLocalStorage(constants.listItemsName);
-        return this.toDoItems;
+    constructor() {
+        this.toDoList = new StoredListService('listItems');
+        this.doneList = new StoredListService('doneItems');
+        this.toDoList.listItems = [];
+        this.doneList.listItems = [];
     }
 
-    public getDoneItems(): ListElementData[] { // delete all
-        this.doneItems = ListUtils.getListFromLocalStorage(constants.doneItemsName);
-        return this.doneItems;
+    public getListItems(): ListElementData[] {
+        return this.toDoList.getListItems();
     }
 
-    public addListItem(title: string) { // + onChange
-        this.toDoItems.push(new ListElementData(title));
-        ListUtils.saveListInLocalStorage(constants.listItemsName, this.toDoItems);
+    public getDoneItems(): ListElementData[] {
+        return this.doneList.getListItems();
+    }
+
+    public addListItem(title: string) {
+        this.toDoList.addListItemByTitle(title);
         this.onChange.emit();
     }
 
     public removeItemFromList(isDone: boolean, id: string) {
         if (isDone) {
-            this.doneItems = ListUtils.removeItemFromList(this.doneItems, constants.doneItemsName, id);
+            this.doneList.removeItemFromList(id);
         } else {
-            this.toDoItems = ListUtils.removeItemFromList(this.toDoItems, constants.listItemsName, id);
+            this.toDoList.removeItemFromList(id);
         }
         this.onChange.emit();
     }
 
-    public markListItemAsDone(id: string) { // refactor
-        let doneItem = this.toDoItems.filter(item => item.id === id);
-        this.toDoItems = ListUtils.removeItemFromList(this.toDoItems, constants.listItemsName, id);
-        this.doneItems = this.doneItems.concat(doneItem);
-        localStorage.setItem('doneItems', JSON.stringify(this.doneItems));
+    public markListItemAsDone(id: string) {
+        let doneItem = ListUtils.getItemById(this.toDoList.listItems, id);
+        this.toDoList.removeItemFromList(id);
+        this.doneList.addListItem(doneItem);
+        ListUtils.saveListInLocalStorage(this.doneList.listName, this.doneList.listItems);
         this.onChange.emit();
     }
 
-    public changeItemStatus(isDone: boolean, id: string) { //REFACTOR
+    public changeItemStatus(isDone: boolean, id: string) {
         let item;
 
         if (isDone) {
-            item = this.doneItems.filter(item => item.id === id);
-            this.doneItems = ListUtils.removeItemFromList(this.doneItems, constants.doneItemsName, id);
-            this.toDoItems = this.toDoItems.concat(item);
+            item = ListUtils.getItemById(this.doneList.listItems, id);
+            this.doneList.listItems = ListUtils.removeItemFromList(this.doneList.listItems, this.doneList.listName, id);
+            this.toDoList.addListItem(item);
         } else {
-            item = this.toDoItems.filter(item => item.id === id);
-            this.toDoItems = ListUtils.removeItemFromList(this.toDoItems, constants.listItemsName, id);
-            this.doneItems = this.doneItems.concat(item);
+            item = ListUtils.getItemById(this.toDoList.listItems, id);
+            this.toDoList.listItems = ListUtils.removeItemFromList(this.toDoList.listItems, this.toDoList.listName, id);
+            this.doneList.addListItem(item);
         }
-        localStorage.setItem('listItems', JSON.stringify(this.toDoItems));
-        localStorage.setItem('doneItems', JSON.stringify(this.doneItems));
+        localStorage.setItem('listItems', JSON.stringify(this.toDoList.listItems));
+        localStorage.setItem('doneItems', JSON.stringify(this.doneList.listItems));
         this.onChange.emit();
     }
 }

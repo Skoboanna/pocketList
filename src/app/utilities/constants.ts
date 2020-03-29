@@ -1,2 +1,2 @@
-export const listItemsName = 'listItems';
-export const doneItemsName = 'doneItems';
+export const toDoListName = 'listItems';
+export const doneListName = 'doneItems';
