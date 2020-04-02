@@ -5,5 +5,5 @@ https://annaskobo.pl/pocketlist/
 To-do list app I'm currently working on. The goal of this project is to boost my Angular skills.
 
 ## Tools:
-Angular 8.3.19
-Uid: https://github.com/lukeed/uid
+* Angular 8.3.19
+* Uid: https://github.com/lukeed/uid
