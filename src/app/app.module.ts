@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { SimplebarAngularModule } from 'simplebar-angular';
+
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { ListElementComponent } from './list-element/list-element.component';
@@ -20,7 +22,8 @@ import { BackdropComponent } from './backdrop/backdrop.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    SimplebarAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]

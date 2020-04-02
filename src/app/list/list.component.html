@@ -18,19 +18,21 @@
         <span class="listBody__search--border"></span>
       </div>
     </div>
-    <div class="listBody__content">
-      <list-element
-        [item]="item"
-        [isDone]="false"
-        *ngFor="let item of listItems"
-      ></list-element>
-      <list-element
-        [item]="doneItem"
-        [isDone]="true"
-        class="done"
-        *ngFor="let doneItem of doneItems"
-      ></list-element>
-    </div>
-    <backdrop></backdrop>
+    <ngx-simplebar>
+      <div class="listBody__content">
+        <list-element
+          [item]="item"
+          [isDone]="false"
+          *ngFor="let item of listItems"
+        ></list-element>
+        <list-element
+          [item]="doneItem"
+          [isDone]="true"
+          class="done"
+          *ngFor="let doneItem of doneItems"
+        ></list-element>
+      </div>
+    </ngx-simplebar>
   </div>
+  <backdrop></backdrop>
 </div>
